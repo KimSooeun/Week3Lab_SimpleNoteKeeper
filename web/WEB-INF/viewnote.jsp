@@ -8,8 +8,8 @@
     <body>
         <h1>Simple Note Keeper</h1>
         <h2>View Note</h2>
-        <p><strong>Title: </strong>${title}</p>
-        <p><strong>Contents: </strong><br>${content}</p>
+        <strong>Title: </strong>${title}<br><br>
+        <strong>Contents: </strong><br>${content}<br><br>
         <a href="note?edit">Edit</a>
     </body>
 </html>

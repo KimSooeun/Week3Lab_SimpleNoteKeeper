@@ -15,42 +15,55 @@ public class NoteServlet extends HttpServlet {
         String path = getServletContext().getRealPath("/WEB-INF/note.txt");
         
         //to read files
-        BufferedReader br = new BufferedReader (new FileReader(new File(path)));
-        
-//        // to write to a file
-//        PrintWriter pw = new PrintWriter (new BufferedWriter(new FileWriter(path, false)));
-//        
+        BufferedReader br = new BufferedReader (new FileReader(new File(path)));    
   
         String titleFile = br.readLine();
         String contentFile = br.readLine();
         
         request.setAttribute("title", titleFile);
         request.setAttribute("content", contentFile);
-                
+        
 //        Note note = new Note(titleFile, contentFile);
 //        request.setAttribute("note", note);
+//        Note note = new Note();
+//        note.setTitle(titleFile);
+//        note.setContents(contentFile);
+//        request.setAttribute("note", note);
         
-        getServletContext().getRequestDispatcher("/WEB-INF/viewnote.jsp").forward(request, response);            
+        br.close();
+        
+        String editParam = request.getParameter("edit");
+        
+        if (editParam == null) {
+            getServletContext().getRequestDispatcher("/WEB-INF/viewnote.jsp").forward(request, response);   
+        } else {
+            getServletContext().getRequestDispatcher("/WEB-INF/editnote.jsp").forward(request, response);   
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String title = request.getParameter("firstname");
-        String content = request.getParameter("lastname");
+        String path = getServletContext().getRealPath("/WEB-INF/note.txt");
         
-//        if (firstname == null || firstname.equals("") ||
-//                lastname == null || lastname.equals("")) {
-//            request.setAttribute("fname", firstname);
-//            request.setAttribute("lname", lastname);
-//            request.setAttribute("invalid", true);
-//            getServletContext().getRequestDispatcher("/WEB-INF/helloWorldJSP.jsp").forward(request, response);
-//            return;
-//        }
+        // to write to a file
+        PrintWriter pw = new PrintWriter (new BufferedWriter(new FileWriter(path, false)));
         
-        Note note = new Note(title, content);
-        request.setAttribute("note", note);
+        String newTitle = request.getParameter("title_field");
+        String newContent = request.getParameter("content_field");
         
-        getServletContext().getRequestDispatcher("/WEB-INF/sayHello.jsp").forward(request, response);   
+        pw.println(newTitle);
+        pw.println(newContent);
+        pw.close();
+          
+//        Note note = new Note();
+//        note.setTitle(newTitle);
+//        note.setContents(newContent);
+//        request.setAttribute("note", note);
+
+        request.setAttribute("title", newTitle);
+        request.setAttribute("content", newContent);
+     
+        getServletContext().getRequestDispatcher("/WEB-INF/viewnote.jsp").forward(request, response);   
     }
 }

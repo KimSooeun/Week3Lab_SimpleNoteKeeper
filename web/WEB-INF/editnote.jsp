@@ -8,11 +8,9 @@
     <body>
         <h1>Simple Note Keeper</h1>
         <h2>Edit Note</h2>
-        <form action="post" method="note">
-            <p>Title: </p>
-            <input type="text" name="title_field" value="">
-            <p>Contents: </p>
-            <input type="text" name="content_field" value="">
+        <form method="post" action="note">
+            Title: <input type="text" name="title_field" value="${title}"><br>
+            Contents: <textarea name="content_field" rows="6" cols="25">${content}</textarea><br>
             <input type="submit" value="Save">
         </form>
     </body>
