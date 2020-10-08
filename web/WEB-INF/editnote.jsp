@@ -8,7 +8,7 @@
     <body>
         <h1>Simple Note Keeper</h1>
         <h2>Edit Note</h2>
-        <form>
+        <form action="post" method="note">
             <p>Title: </p>
             <input type="text" name="title_field" value="">
             <p>Contents: </p>
